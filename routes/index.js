@@ -6,22 +6,21 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-// **BEGIN**
-router.post('/first/:id', function(req, res, next){
-  console.log('second route reached');
-  console.log('body:', req.body.name);
-  res.end('second\n')
+// **BEGIN DEMO**
+
+// See what happens when you swap the order of the two following handlers:
+
+router.post('/name', function(req, res, next){
+  res.end(req.body.name)
 });
 
 router.post('*', 
 	function(req, res, next){
-	  console.log('first route reached');
-	  console.log('body:', req.body.name);
-	  req.body.name += ' Atwood'
+	  req.body.name += ' Kimball'
 	  next()
 	}, 
 	function(req, res, next) {
-		req.body.name += ' Kimball ';
+		req.body.name += ' Atwood';
 		next()
 	}
 );
